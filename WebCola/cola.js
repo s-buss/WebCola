@@ -3531,6 +3531,10 @@ var cola;
                 this.trigger({ type: EventType.end, alpha: this._alpha = 0, stress: this._lastStress });
                 return true;
             }
+            // Some browsers seem to call tick before start is finished. Ignore early calls.
+            if (!this._descent) {
+                return false;
+            }
             var n = this._nodes.length, m = this._links.length;
             var o, i;
             this._descent.locks.clear();
